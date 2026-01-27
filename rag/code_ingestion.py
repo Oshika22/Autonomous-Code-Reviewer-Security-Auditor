@@ -84,3 +84,5 @@ if __name__ == "__main__":
         print(f"{category.upper()}:")
         for item in items:
             print(" -", item)
+
+

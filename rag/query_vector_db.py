@@ -22,3 +22,5 @@ for r in results:
     print("----")
     print(r.page_content)
     print("METADATA:", r.metadata)
+
+
