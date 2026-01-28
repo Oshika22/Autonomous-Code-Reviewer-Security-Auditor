@@ -1,6 +1,6 @@
 # from langchain.vectorstores import Chroma
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import OllamaEmbeddings
+from langchain_ollama import OllamaEmbeddings, ChatOllama
+from langchain_chroma import Chroma
 
 PERSIST_DIR = "vector_store"
 
