@@ -1,9 +1,13 @@
 import json
 import os
 # from langchain.schema import Document
-from langchain_community.embeddings import OllamaEmbeddings
-from langchain_community.vectorstores import Chroma
+# from langchain_community.embeddings import OllamaEmbeddings
+# from langchain_community.vectorstores import Chroma
 from langchain_core.documents import Document
+
+from langchain_ollama import OllamaEmbeddings, ChatOllama
+from langchain_chroma import Chroma
+
 
 from dotenv import load_dotenv
 load_dotenv()
