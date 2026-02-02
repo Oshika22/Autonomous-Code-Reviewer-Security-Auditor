@@ -32,6 +32,10 @@ def main():
         print("AUDIT REPORT FOR:", file_to_scan)
         print("="*30)
         print(final_state.get('report'))
+
+        # Access the metrics we created in the scoring_node
+        metrics = final_state.get('metrics', {})
+        print(metrics.get('rating_details', "No ratings generated."))
     else:
         print(f"Error: File '{file_to_scan}' not found.")
 
