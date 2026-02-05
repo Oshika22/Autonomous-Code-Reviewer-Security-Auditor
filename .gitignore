@@ -22,6 +22,7 @@ ENV/
 # Vector Databases / AI Artifacts
 # ================================
 vector_store/
+db_chroma/
 chroma/
 faiss_index/
 *.db
