@@ -1,0 +1,10 @@
+file_name,line_number,vulnerability_type,severity,risk_score,explanation
+auth.py,42,SQL Injection,High,87,User input concatenated into SQL query
+auth.py,55,Hardcoded Secret,Medium,65,Password stored in source code
+db.py,12,Insecure Connection,High,78,Database connection without SSL
+utils.py,88,XSS,Low,30,Unsanitized output rendered in HTML
+payment.py,71,Buffer Overflow,High,82,Unchecked input size
+api.py,19,Improper Authentication,Medium,60,Missing token validation
+config.py,5,Hardcoded API Key,High,90,API key exposed
+logger.py,40,Information Leakage,Low,25,Logs contain sensitive data
+
