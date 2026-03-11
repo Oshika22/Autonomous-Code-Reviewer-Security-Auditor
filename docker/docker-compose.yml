@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/backend/Dockerfile
+    container_name: auditor_backend
+    env_file:
+      - .env
+    volumes:
+      - ../:/app
+    depends_on:
+      - vector-db
+    networks:
+      - auditor_net
+
+  vector-db:
+    image: redis:7-alpine
+    container_name: auditor_vector_db
+    ports:
+      - "6379:6379"
+    networks:
+      - auditor_net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: auditor_frontend
+    ports:
+      - "8080:80"
+    networks:
+      - auditor_net
+
+networks:
+  auditor_net:
+    driver: bridge
