@@ -1,0 +1,66 @@
+services:
+
+  ingest:
+    build:
+      context: ..
+      dockerfile: docker/backend/Dockerfile
+    container_name: auditor_ingest
+    env_file:
+      - .env
+    volumes:
+      - chroma_data:/app/rag/db_chroma
+    command: ["python", "rag/ingest.py"]
+    networks:
+      - auditor_net
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/backend/Dockerfile
+    container_name: auditor_backend
+    env_file:
+      - .env
+    volumes:
+      - chroma_data:/app/rag/db_chroma
+    ports:
+      - "8000:8000"
+    depends_on:
+      vector-db:
+        condition: service_healthy
+      ingest:
+        condition: service_started   # don't block on ingest success; Ollama failure is expected
+    networks:
+      - auditor_net
+
+  vector-db:
+    image: redis:7-alpine
+    container_name: auditor_vector_db
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - auditor_net
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/frontend/Dockerfile
+    container_name: auditor_frontend
+    ports:
+      - "8081:80"
+    networks:
+      - auditor_net
+
+volumes:
+  chroma_data:
+  redis_data:
+
+networks:
+  auditor_net:
+    driver: bridge
